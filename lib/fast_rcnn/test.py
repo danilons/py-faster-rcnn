@@ -254,6 +254,9 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
             box_proposals = roidb[i]['boxes'][roidb[i]['gt_classes'] == 0]
 
         im = cv2.imread(imdb.image_path_at(i))
+        if im is None:
+            continue
+            
         _t['im_detect'].tic()
         scores, boxes = im_detect(net, im, box_proposals)
         _t['im_detect'].toc()
